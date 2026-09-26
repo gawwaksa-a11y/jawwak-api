@@ -1,0 +1,283 @@
+/// معرّف مالك افتراضي للبيانات التجريبية.
+export const SEED_OWNER_ID = '00000000-0000-4000-8000-000000000002';
+
+export interface VendorSeed {
+  businessNameAr: string;
+  businessNameEn: string;
+  category: 'restaurant' | 'cafe' | 'activity' | 'food_truck' | 'event';
+  lat: number;
+  lng: number;
+  addressText: string;
+  priceRange: 'budget' | 'mid' | 'premium';
+  moodTags: string[];
+  companionTags: string[];
+  verified: boolean;
+}
+
+const img = (n: number) => `https://picsum.photos/seed/jawwak${n}/800/600`;
+
+export type SeededVendor = VendorSeed & {
+  images: string[];
+  operatingHours: Record<string, string>;
+};
+
+/// 20 مكاناً واقعياً في الرياض بإحداثيات GPS تقريبية لأحيائها.
+const RAW_SEEDS: VendorSeed[] = [
+  {
+    businessNameAr: 'ذا جلوب',
+    businessNameEn: 'The Globe',
+    category: 'restaurant',
+    lat: 24.6912,
+    lng: 46.6857,
+    addressText: 'برج الفيصلية، حي العليا، الرياض',
+    priceRange: 'premium',
+    moodTags: ['food', 'calm'],
+    companionTags: ['duo', 'family'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'إلورا كافيه',
+    businessNameEn: 'Elora Cafe',
+    category: 'cafe',
+    lat: 24.808,
+    lng: 46.627,
+    addressText: 'حي الملقا، الرياض',
+    priceRange: 'mid',
+    moodTags: ['calm', 'explore'],
+    companionTags: ['solo', 'duo'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'شاورمر',
+    businessNameEn: 'Shawarmer',
+    category: 'restaurant',
+    lat: 24.7,
+    lng: 46.68,
+    addressText: 'حي العليا (عدة فروع)، الرياض',
+    priceRange: 'budget',
+    moodTags: ['food', 'excitement'],
+    companionTags: ['solo', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'بارنز',
+    businessNameEn: 'Barns',
+    category: 'cafe',
+    lat: 24.833,
+    lng: 46.654,
+    addressText: 'حي النرجس، الرياض',
+    priceRange: 'mid',
+    moodTags: ['calm'],
+    companionTags: ['solo', 'duo'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'ذا ميت كو',
+    businessNameEn: 'The Meat Co',
+    category: 'restaurant',
+    lat: 24.718,
+    lng: 46.665,
+    addressText: 'طريق التخصصي، الرياض',
+    priceRange: 'premium',
+    moodTags: ['food', 'excitement'],
+    companionTags: ['duo', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'سكاي بريدج',
+    businessNameEn: 'Sky Bridge',
+    category: 'activity',
+    lat: 24.7118,
+    lng: 46.6745,
+    addressText: 'برج المملكة، حي العليا، الرياض',
+    priceRange: 'premium',
+    moodTags: ['explore', 'excitement'],
+    companionTags: ['duo', 'family'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'فود تراك بارك الملقا',
+    businessNameEn: 'Malqa Food Truck Park',
+    category: 'food_truck',
+    lat: 24.81,
+    lng: 46.63,
+    addressText: 'حي الملقا، الرياض',
+    priceRange: 'budget',
+    moodTags: ['food', 'excitement'],
+    companionTags: ['group', 'family'],
+    verified: false,
+  },
+  {
+    businessNameAr: 'مقهى دوز',
+    businessNameEn: 'Dose Cafe',
+    category: 'cafe',
+    lat: 24.749,
+    lng: 46.755,
+    addressText: 'حي الروضة، الرياض',
+    priceRange: 'mid',
+    moodTags: ['calm', 'explore'],
+    companionTags: ['solo', 'duo'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'الحديقة النباتية',
+    businessNameEn: 'Botanical Garden',
+    category: 'activity',
+    lat: 24.63,
+    lng: 46.57,
+    addressText: 'وادي حنيفة، الرياض',
+    priceRange: 'budget',
+    moodTags: ['explore', 'calm'],
+    companionTags: ['family', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'لقمة اسطنبول',
+    businessNameEn: 'Loqmat Istanbul',
+    category: 'restaurant',
+    lat: 24.695,
+    lng: 46.686,
+    addressText: 'حي العليا، الرياض',
+    priceRange: 'mid',
+    moodTags: ['food'],
+    companionTags: ['family', 'group'],
+    verified: false,
+  },
+  {
+    businessNameAr: 'مطعم نجد فيلج',
+    businessNameEn: 'Najd Village',
+    category: 'restaurant',
+    lat: 24.7529,
+    lng: 46.6412,
+    addressText: 'حي النخيل، طريق التخصصي، الرياض',
+    priceRange: 'mid',
+    moodTags: ['food', 'explore'],
+    companionTags: ['family', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'كايزن سوشي',
+    businessNameEn: 'Kaizen Sushi',
+    category: 'restaurant',
+    lat: 24.768,
+    lng: 46.63,
+    addressText: 'حي حطين، الرياض',
+    priceRange: 'premium',
+    moodTags: ['food', 'calm'],
+    companionTags: ['duo'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'عربة برجرايزر',
+    businessNameEn: 'Burgerizzr Truck',
+    category: 'food_truck',
+    lat: 24.7689,
+    lng: 46.6321,
+    addressText: 'بوليفارد رياض سيتي، حي حطين، الرياض',
+    priceRange: 'budget',
+    moodTags: ['food', 'excitement'],
+    companionTags: ['duo', 'group'],
+    verified: false,
+  },
+  {
+    businessNameAr: 'مقهى نبت',
+    businessNameEn: 'Nabt Cafe',
+    category: 'cafe',
+    lat: 24.8083,
+    lng: 46.6271,
+    addressText: 'حي الملقا، الرياض',
+    priceRange: 'mid',
+    moodTags: ['calm', 'explore'],
+    companionTags: ['solo', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'حديقة الملك عبدالله',
+    businessNameEn: 'King Abdullah Park',
+    category: 'activity',
+    lat: 24.6659,
+    lng: 46.7179,
+    addressText: 'حي الملز، الرياض',
+    priceRange: 'budget',
+    moodTags: ['calm', 'explore'],
+    companionTags: ['family', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'بوليفارد رياض سيتي',
+    businessNameEn: 'Boulevard Riyadh City',
+    category: 'event',
+    lat: 24.7683,
+    lng: 46.6325,
+    addressText: 'حي حطين، الرياض',
+    priceRange: 'premium',
+    moodTags: ['excitement', 'explore'],
+    companionTags: ['duo', 'family', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'سنو سيتي',
+    businessNameEn: 'Snow City',
+    category: 'activity',
+    lat: 24.7462,
+    lng: 46.7661,
+    addressText: 'الأندلس مول، طريق الملك عبدالله، الرياض',
+    priceRange: 'mid',
+    moodTags: ['excitement'],
+    companionTags: ['family', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'عربة تاكو تشيلي',
+    businessNameEn: 'Chili Taco Truck',
+    category: 'food_truck',
+    lat: 24.8331,
+    lng: 46.6543,
+    addressText: 'حي النرجس، الرياض',
+    priceRange: 'budget',
+    moodTags: ['food', 'excitement'],
+    companionTags: ['group'],
+    verified: false,
+  },
+  {
+    businessNameAr: 'المختص للقهوة',
+    businessNameEn: 'Almaqha Specialty Coffee',
+    category: 'cafe',
+    lat: 24.7862,
+    lng: 46.6421,
+    addressText: 'حي الصحافة، الرياض',
+    priceRange: 'mid',
+    moodTags: ['explore', 'calm'],
+    companionTags: ['solo', 'group'],
+    verified: true,
+  },
+  {
+    businessNameAr: 'حلبة الكارتينج',
+    businessNameEn: 'Karting Circuit',
+    category: 'activity',
+    lat: 24.7586,
+    lng: 46.6418,
+    addressText: 'حي المروج، الرياض',
+    priceRange: 'mid',
+    moodTags: ['excitement'],
+    companionTags: ['group', 'duo'],
+    verified: false,
+  },
+];
+
+/// ساعات عمل نموذجية حسب الفئة (تقديرية — تُحدَّث من المزوّد نفسه عند التسجيل).
+const HOURS_BY_CATEGORY: Record<VendorSeed['category'], Record<string, string>> = {
+  cafe: { daily: '06:00-24:00' },
+  restaurant: { daily: '12:00-01:00' },
+  food_truck: { daily: '16:00-02:00' },
+  activity: { daily: '10:00-23:00' },
+  event: { daily: '19:00-24:00' },
+};
+
+/// ملاحظة صدق البيانات: التقييمات لا تُزرع هنا — تُحسب فقط من تقييمات حقيقية
+/// (user_reviews). الصور صور مخزون مؤقتة، والإحداثيات تقريبية على مستوى الحي.
+export const VENDOR_SEEDS: SeededVendor[] = RAW_SEEDS.map((v, i) => ({
+  ...v,
+  images: [img(i + 1), img(i + 101)],
+  operatingHours: HOURS_BY_CATEGORY[v.category],
+}));

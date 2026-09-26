@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+.git
+.github
+*.log
+# أسرار وبيانات محلية — لا تُنسخ إلى الصورة أبداً.
+.env
+.env.*
+!.env.example
+firebase-service-account.json
+*.sqlite

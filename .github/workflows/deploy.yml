@@ -1,0 +1,44 @@
+name: CI & Deploy (Railway)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit -p tsconfig.json
+      - run: npm test
+      # e2e تعمل على SQLite في الذاكرة وتضبط متغيّراتها بنفسها — لا أسرار مطلوبة.
+      - run: npm run test:e2e
+      - run: npm run build
+
+  deploy:
+    # النشر فقط عند الدفع إلى main (لا في طلبات الدمج) وبعد نجاح الاختبارات.
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Railway CLI (رسمي)
+        run: npm install -g @railway/cli
+      - name: Deploy
+        # RAILWAY_TOKEN: Project Token من Railway → Project Settings → Tokens.
+        # RAILWAY_SERVICE: اسم/معرّف خدمة الـ API في Railway (افتراضياً jawwak-api).
+        run: railway up --service "${RAILWAY_SERVICE:-jawwak-api}"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_SERVICE: ${{ vars.RAILWAY_SERVICE }}
